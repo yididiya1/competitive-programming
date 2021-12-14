@@ -2,7 +2,7 @@
 def countingValleys(steps, path):
     
     paths = list(path)
-    sealevel = 0;
+    sealevel = 0
     valley = 0
     
     for i in range(steps):
@@ -17,3 +17,8 @@ def countingValleys(steps, path):
                 valley+=1
             sealevel -=1
     return valley
+
+
+
+
+
