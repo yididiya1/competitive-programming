@@ -6,42 +6,36 @@
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         
-        output = []
-        while list1 != None or list2 != None:
-            if(list1!=None and list2!=None):
-                output.append(list1.val)
-                output.append(list2.val)
-                list1 = list1.next
-                list2 = list2.next
-            elif(list1!= None):
-                output.append(list1.val)
+        answer = ListNode()
+        curr = answer
+        
+        while list1 and list2:
+            first = list1.val
+            second = list2.val           
+            if first <= second:
+                curr.next = list1
+                curr = curr.next
                 list1 = list1.next
             else:
-                output.append(list2.val)
+                curr.next = list2
+                curr = curr.next
                 list2 = list2.next
+            
+        while list1:
+            curr.next = list1
+            curr = curr.next
+            list1 = list1.next
+            
+        while list2:
+            curr.next = list2
+            curr = curr.next
+            list2 = list2.next
+            
+        return answer.next
+            
+            
                 
-        output.sort()
-        # print(output)
-        
-        def createLL(n):
-            if n == len(output) - 1:
-                return ListNode(output[n])
-            return ListNode(output[n],createLL(n+1))
-        
-        
-        
-        if not output:
-            if list1 == None:
-                return list1
-            else:
-                return list2
-        
-        result = createLL(0)
-        return result
-        
-#         result = createLL(0)
-        
-#         return result
+                
         
         
         
