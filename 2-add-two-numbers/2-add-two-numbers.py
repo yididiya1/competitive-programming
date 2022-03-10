@@ -12,28 +12,20 @@ class Solution:
         curr = dummy
         carry = 0
         
-        while l1 and l2:
-            _sum = l1.val+l2.val+carry
+        while l1 or l2:
+            _sum = carry
+            if l1 : 
+                _sum += l1.val
+                l1 = l1.next
+            if l2 :
+                _sum += l2.val
+                l2 = l2.next
+            
             carry = _sum//10
             curr.next = ListNode(_sum%10)
-            l1 = l1.next
-            l2 = l2.next
             curr = curr.next
             
-        while l1:
-            _sum = l1.val+carry
-            carry = _sum//10
-            curr.next = ListNode(_sum%10)
-            l1 = l1.next
-            curr = curr.next
-            
-        while l2:
-            _sum = l2.val+carry
-            carry = _sum//10
-            curr.next = ListNode(_sum%10)
-            l2 = l2.next
-            curr = curr.next
-        
+   
         
         if carry != 0:
             curr.next = ListNode(carry)
