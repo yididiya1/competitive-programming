@@ -1,8 +1,7 @@
 class Solution:
     def partitionLabels(self, s: str) -> List[int]:
         finalA = {}
-        l = 0
-        r = 0
+        l,r = 0,0
         result = []
         expected = 0
         
@@ -11,14 +10,9 @@ class Solution:
         
         for i in range(len(s)):
             finalA[s[i]] = i
-        
-        
-        # print(finalA)
-        count = 0
-        
+     
         while r < len(s)-1:
             expected = max(finalA[s[l]],finalA[s[r]],expected)
-            # print(l,r,result,expected)
             if r < expected:
                 r += 1
             else:
