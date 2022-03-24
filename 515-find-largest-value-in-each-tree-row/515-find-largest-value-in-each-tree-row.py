@@ -16,11 +16,9 @@ class Solution:
         
         while queue:
             node,level = queue.popleft()
-            if level in largest:    
-                largest[level] = max(largest[level],node.val)
-            else:
-                largest[level] = node.val
-            
+              
+            largest[level] = max(largest[level],node.val) if level in largest else node.val
+    
             if node.left:
                 queue.append((node.left,level+1))
             if node.right:
