@@ -2,6 +2,7 @@ class Solution:
     def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
         requires = {recipe:[] for recipe in recipes}
         indegree =  [0 for i in range(len(recipes))]
+        supplies = set(supplies)
         
         for i in range(len(ingredients)):
             for j in range(len(ingredients[i])):
