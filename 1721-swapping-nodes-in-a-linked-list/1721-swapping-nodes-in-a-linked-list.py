@@ -5,30 +5,31 @@
 #         self.next = next
 class Solution:
     def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        
-        
-        def createLL(l):
-            dummy = ListNode()
-            curr = dummy
-            for num in l:
-                curr.next = ListNode(num)
-                curr = curr.next
-            return dummy.next
-        
-        arr = []
+        size = 0
         curr = head
-        
+           
         while curr:
-            arr.append(curr.val)
+            size += 1
             curr = curr.next
-          
+            
+        temp = head
+        count = 1
         
-        index = k - 1
-        arr[index],arr[-k] = arr[-k],arr[index]
+        k = min(k,size-k+1)
+        
+        swap = None
         
         
+        while temp:
+            if count == k:
+                swap = temp
+            if count == size-k+1:
+                swap.val,temp.val = temp.val,swap.val
+                break
+            temp = temp.next
+            count += 1
         
-        return createLL(arr)
+        return head
         
         
         
