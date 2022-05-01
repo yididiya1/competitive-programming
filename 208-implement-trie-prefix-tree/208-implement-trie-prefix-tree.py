@@ -3,7 +3,7 @@
 class Node:
     def __init__(self):
         self.isEnd = False
-        self.chars = {}
+        self.chars = defaultdict(Node)
 
 class Trie:
 
@@ -13,8 +13,8 @@ class Trie:
     def insert(self, word: str) -> None:
         curr = self.root
         for char in word:
-            if char not in curr.chars:
-                curr.chars[char] = Node()
+            # if char not in curr.chars:
+            #     curr.chars[char] = Node()
             curr = curr.chars[char] 
         
         curr.isEnd = True
