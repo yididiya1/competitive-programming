@@ -8,15 +8,29 @@ class Solution:
         
         #iterative
         
-        prev, curr = None, head
+#         prev, curr = None, head
         
-        while curr:
-            nxt = curr.next
-            curr.next = prev
-            prev = curr
-            curr = nxt
+#         while curr:
+#             nxt = curr.next
+#             curr.next = prev
+#             prev = curr
+#             curr = nxt
         
-        return prev
+#         return prev
     
-        #recursion
+        #recursive
+        
+        def reverse(node):
+            if not node:
+                return None
+            
+            newhead = node
+            if node.next:
+                newhead = reverse(node.next)
+                node.next.next = node
+            
+            node.next = None
+            return newhead
+        
+        return reverse(head)
         
