@@ -1,34 +1,40 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
-        # neighbors = {i:[] for i in range(len(graph))}
-        output = []
-        visited = set()
-        memo = {}
         
-        def dfs(idx):
-            if idx in memo:
-                return memo[idx]
-            if idx in visited:
-                return False
-            if graph[idx] == []:
-                return True
-            
-            visited.add(idx)
-            for i in graph[idx]:
-                answer = memo[i] if i in memo else dfs(i)
-                if answer == False:
-                    return False
-            
-            memo[idx] = True
-            visited.remove(idx)
-            return True
-            
-                    
+        neighbors = { i:[] for i in range(len(graph))}
+        indegree = [len(i) for i in graph]
+        queue = deque()
+        
+        
+        # print(indegree)
+        
         for i in range(len(graph)):
-            if dfs(i) == True:
-                output.append(i)
+            for num in graph[i]:
+                neighbors[num].append(i)
+        
+        # print(neighbors)
+        
+        for i in range(len(indegree)):
+            if indegree[i] == 0:
+                queue.append(i)
+        
+        
+        # print(queue)
+        
+        output = []
+        
+        
+        while queue:
+            index = queue.popleft()
+            output.append(index)
             
-        return (output)
+            for num in neighbors[index]:
+                indegree[num] -= 1
+                if indegree[num] == 0:
+                    queue.append(num)
                     
+        output.sort()
+        
+        return output
             
-            
+        
