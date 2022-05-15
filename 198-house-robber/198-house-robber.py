@@ -1,38 +1,31 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         
+        #top-down approach 
         
-        
-        if len(nums) == 1:
-            return nums[0]
-        
-        
-        nums[1] = max(nums[0],nums[1])
-        
-        
-        
-        for i in range(2,len(nums)):
-            nums[i] = max(nums[i-2]+nums[i],nums[i-1]) 
+        memo = {}
+        def dp(index):
+            if index == 0:
+                return nums[0]  
+            if index == 1:
+                return max(nums[0],nums[1])
             
+            if index in memo:
+                return memo[index]
             
-        return max(nums)
-                
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-#         def dp(index):
-#             if index == len(nums)-1 :
-#                 return nums[index]
-#             if index == len(nums) -2:
-#                 return min(nums[-2],nums[-1])
+            rob = dp(index-2) + nums[index]
+            not_rob = dp(index - 1) + 0
+            memo[index] = max(rob,not_rob)
             
-#             return min(nums(index),dp(index+1))
+            return memo[index]
         
-#         print(dp(0),dp(1))
+        
+        return dp(len(nums)-1)
+        
+        
+        
+        #bottom-up approach
+        
+        
+        
+        
