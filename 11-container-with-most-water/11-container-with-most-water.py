@@ -1,25 +1,23 @@
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        
         l = 0
-        r = len(height)  - 1
+        r = len(height) - 1
         
-        current_max = (r-l) * min(height[r],height[l])
+        best = 0
         
-        while l < r:
+        while l <= r:
+    
+            curr = min(height[l],height[r]) * (r-l)
+            # print(min(height[l],height[r]) ,r-l,curr)
+            best = max(best,curr)
             
-            if height[l] < height[r]:
-                l += 1
+            if height[l] >= height[r]:
+                r -= 1
             else:
-                r -= 1     
-            current_max = max(current_max,(r-l) * min(height[r],height[l]))
-            
-        return current_max
-            
+                l += 1
                 
-            
-                
-                
-            
+        return best
+        
+        
         
         
