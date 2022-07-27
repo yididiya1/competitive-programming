@@ -1,26 +1,29 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        if len(nums) == 0:
-            return 0
-
+        
+        
         if len(nums) == 1:
             return nums[0]
+        
+        def getMax(numss):
+            
+            memo = {}
+            
+            def dp(index):
+                if index == len(numss) - 1:
+                    return numss[index]
+                if index == len(numss) - 2:
+                    return max(numss[index+1],numss[index])
 
-        return max(self.robRange(nums, 0, len(nums) - 1),\
-                   self.robRange(nums, 1, len(nums)))
+                if index in memo : return memo[index]
 
-    def robRange(self, nums, start, end):
-        num_i, num_i_1 = nums[start], 0
-        for i in range(start + 1, end):
-            num_i_1, num_i_2 = num_i, num_i_1
-            num_i = max(nums[i] + num_i_2, num_i_1)
+                rob = dp(index+2) + numss[index]
+                not_rob = dp(index+1) + 0
 
-        return num_i
+                memo[index] = max(rob,not_rob)
+
+                return max(rob,not_rob)
+
+            return dp(0)
         
-        
-        
-        
-        
-        
-        
-        
+        return max(getMax(nums[1:]),getMax(nums[:-1]))
