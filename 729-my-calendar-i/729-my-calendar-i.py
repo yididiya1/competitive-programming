@@ -1,8 +1,7 @@
 class MyCalendar:
 
     def __init__(self):
-        self.events = []
-    
+        self.events =[]
     
     def book(self, start: int, end: int) -> bool:
         def check_double(s1,e1,s2,e2):
@@ -16,12 +15,29 @@ class MyCalendar:
             self.events.append((start,end))
             return True
         else:
-            for s,e in self.events:
-                if not check_double(s,e,start,end):
+            index = bisect_right(self.events,(start,end))
+            prev = self.events[index - 1] if index - 1 >= 0 else None
+            curr = self.events[index] if index < len(self.events) else None
+            # print(index)
+            if curr == None:
+                if prev[1] <= start:
+                    self.events.append((start,end))
+                    return True
+                else:
                     return False
-            
-            self.events.append((start,end))
-            return True
+            elif prev == None:
+                if curr[0] >= end:
+                    self.events.insert(index,(start,end))
+                    return True
+                else:
+                    return False
+            else:
+                if curr[0] >= end and prev[1] <= start:
+                    self.events.insert(index,(start,end))
+                    return True
+                else:
+                    return False
+           
             
 
 
