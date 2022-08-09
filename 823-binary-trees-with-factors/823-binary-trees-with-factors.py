@@ -25,17 +25,13 @@ class Solution:
         
         
         
+        freq  = {}
         
-        
-        memo = {}
-        
+        @cache
         def dp(index):
-            if index in memo:
-                return memo[index]
             x = getTwo(arr,arr[index])
             if not x:
                 return 0
-                memo[index] = 0
             else:
                 mine = 0
                 for l,r in x:
@@ -43,7 +39,6 @@ class Solution:
                     mine += dp(l) * dp(r)
                     mine += dp(l)
                     mine += dp(r)
-                memo[index] = mine
                 return mine
         
         total = 0
