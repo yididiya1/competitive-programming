@@ -1,7 +1,7 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         self.temp = x
-        @cache
+        
         def pow(x,n):
             if n == 0:
                 # print(1)
