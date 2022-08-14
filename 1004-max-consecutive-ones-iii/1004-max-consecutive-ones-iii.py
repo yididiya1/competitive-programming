@@ -1,21 +1,27 @@
 class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
         
-        left = 0
-        zero_count = 0
-        result = 0
+        l = 0
+        r = 0
+        curr = k
+        _max = float('-inf')
         
-        for right in range(len(nums)):
-            if nums[right] == 0:
-                zero_count += 1
+        while r <= len(nums)-1:
+            # print(l,r)
+            if nums[r] == 1:
+                r += 1
+            else:
+                if curr > 0:
+                    r += 1
+                    curr -= 1
+                else:
+                    _max = max(_max,r-l)
+                    # print("Current ",r-l)
+                    while nums[l] == 1:
+                        l += 1
+                    l += 1
+                    curr += 1
+        _max = max(_max,r-l)
+        return _max
+                    
         
-            while zero_count > k:
-                if nums[left] == 0:
-                    zero_count -= 1
-                left += 1
-            
-            result = max(result,right-left+1)
-        
-            
-      
-        return result
