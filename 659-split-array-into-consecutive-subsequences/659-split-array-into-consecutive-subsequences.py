@@ -5,10 +5,8 @@ class Solution:
         
         
         for i in range(len(nums)):
-            # print(maxHeap,"==")
             if not maxHeap:
                 heapq.heappush(maxHeap,(nums[i],1))
-                # maxHeap.append((1,1))
             else:
                 while maxHeap and maxHeap[0][0]+1 < nums[i]:
                     ee,ll = heapq.heappop(maxHeap)
@@ -24,9 +22,7 @@ class Solution:
                 else:
                     heapq.heappush(maxHeap,(nums[i],1))
                 
-                    
-        # print(maxHeap)       
-        
+
         while maxHeap:
             e,l = heapq.heappop(maxHeap)
             if l < 3:
