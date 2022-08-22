@@ -3,6 +3,7 @@ class Solution:
         prefix_sum = [0 for i in range(len(s))]
         prefix_sum[0] = 1 if s[0] == '|' else 0
         candles = []
+        
         if s[0] == '|':
             candles.append(0)
         
@@ -12,7 +13,9 @@ class Solution:
                 prefix_sum[i] = prefix_sum[i-1] + 1
             else:
                 prefix_sum[i] = prefix_sum[i-1]
+        
         result = []
+        
         for start,end in queries:
             l = bisect_left(candles,start)
             r = bisect_right(candles,end)
