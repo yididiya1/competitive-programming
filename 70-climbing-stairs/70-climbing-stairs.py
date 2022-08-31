@@ -1,19 +1,14 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        memo = {}
-        def dp(nth):
-            if nth == 0:
-                return 1
-            
-            if nth == 1:
-                return 1
-            
-            i = memo[nth-1] if nth-1 in memo else dp(nth-1)
-            i_1 = memo[nth-2] if nth-2 in memo else dp(nth-2)
-            
-            
-            memo[nth] = i + i_1
-            
-            return memo[nth]
         
-        return (dp(n))
+        @cache
+        def dp(nth):
+            if nth > n:
+                return 0
+            if nth == n:
+                return 1
+            one = dp(nth+1)
+            two = dp(nth+2)
+            return one + two
+        
+        return dp(0)
