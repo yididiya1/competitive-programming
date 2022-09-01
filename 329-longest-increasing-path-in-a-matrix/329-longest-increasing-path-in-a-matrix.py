@@ -14,12 +14,10 @@ class Solution:
                         indegree[row][col] += 1
                 if indegree[row][col] == 0:
                     queue.append((row,col))
-        # print(queue)
-        # print(indegree)
+
+                    
         longest = 0
         while queue:
-            # print(queue)
-            # print(indegree)
             for i in range(len(queue)):
                 curr_r,curr_c = queue.popleft()
                 for r,c in dirs:
