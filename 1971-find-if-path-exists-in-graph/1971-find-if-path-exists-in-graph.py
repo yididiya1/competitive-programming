@@ -8,18 +8,39 @@ class Solution:
             graph[dest].append(start)
             
         visited = set()
+        stack = [source]
         
-        def dfs(vert):
+        
+        while stack:
+            curr = stack.pop()
             
-            visited.add(vert)
-            
-            if vert == destination:
+            if curr == destination:
                 return True
             
-            me = False
-            for neighbor in graph[vert]:
-                if neighbor not in visited:
-                    me = me or dfs(neighbor)
-            return me
+            if curr in visited:
+                continue
             
-        return dfs(source)
+            visited.add(curr)
+            
+            for neigh in graph[curr]:
+                stack.append(neigh)
+        
+        
+        return False
+        
+        
+        #recursive
+#         def dfs(vert):
+            
+#             visited.add(vert)
+            
+#             if vert == destination:
+#                 return True
+            
+#             me = False
+#             for neighbor in graph[vert]:
+#                 if neighbor not in visited:
+#                     me = me or dfs(neighbor)
+#             return me
+            
+#         return dfs(source)
