@@ -5,10 +5,9 @@ class Solution:
         nums = []
         
         for i,log in enumerate(logs):
-            lst = log.split(' ')
-            if not lst[1].isnumeric():
-                string = " ".join(lst[1:])
-                sortedlogs.append((string,lst[0],i))
+            idt,rest = log.split(' ',maxsplit=1)
+            if not rest[0].isnumeric():
+                sortedlogs.append((rest,idt,i))
             else:
                 nums.append(log)
                 
