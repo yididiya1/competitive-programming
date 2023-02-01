@@ -1,0 +1,28 @@
+class Solution:
+    def matrixBlockSum(self, mat: List[List[int]], k: int) -> List[List[int]]:
+
+        answer =[[0 for _ in range(len(mat[0]))] for _ in range(len(mat))]
+
+        for col in range(1,len(mat[0])):
+            mat[0][col] += mat[0][col-1]
+        
+        for row in range(1,len(mat)):
+            mat[row][0] += mat[row-1][0]
+
+        for row in range(1,len(mat)):
+            for col in range(1,len(mat[0])):
+                mat[row][col] += mat[row-1][col] + mat[row][col-1] - mat[row-1][col-1]
+        # print(mat)
+        for row in range(len(mat)):
+            for col in range(len(mat[0])):
+                start_r,end_r = max(0,row-k),min(row+k,len(mat)-1)
+                start_c,end_c = max(0,col-k),min(col+k,len(mat[0])-1)
+                row_diff = mat[start_r-1][end_c] if start_r-1 >= 0 else 0
+                col_diff = mat[end_r][start_c-1] if start_c-1 >= 0 else 0
+                intersect = mat[start_r-1][start_c-1] if start_c - 1 >= 0 and start_r - 1 >= 0 else 0
+                # print(row_diff,col_diff,intersect,"For",row,col)
+                main = mat[end_r][end_c] - (row_diff + col_diff) + intersect
+                answer[row][col] = main
+
+        return answer
+                
