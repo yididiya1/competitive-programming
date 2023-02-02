@@ -1,0 +1,58 @@
+class Solution:
+    def numberToWords(self, num: int) -> str:
+
+        if num == 0:
+            return "Zero"
+        
+        lessThan20 = ["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"]
+        tens = ["","Ten","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"]
+        thousands = ["","Thousand","Million","Billion"]
+
+        num = str(num)
+        numbers = []
+
+        itr = len(num)//3
+        itr = itr + 1 if len(num)%3 != 0 else itr
+        e = len(num)
+        s = max(0,e - 3)
+
+        for i in range(itr):
+            numbers.append(num[s:e])
+            e = s
+            s = max(0,e-3)
+
+        def getTwo(number):
+            if int(number[0]) <= 1:
+                return lessThan20[int(number)]
+            else:
+                temp = tens[int(number[0])]
+                temp += ' ' + lessThan20[int(number[1])] if lessThan20[int(number[1])] else ''
+                return temp
+        
+        ans = []
+        power = 0
+        for i in range(len(numbers)):
+            if int(numbers[i]) == 0:
+                power += 1
+                continue
+            numbers[i] = str(int(numbers[i]))
+
+            no = int(numbers[i])
+            curr = []
+            temp = ""
+            if len(numbers[i]) == 3:
+                if lessThan20[int(numbers[i][0])] :curr.append(lessThan20[int(numbers[i][0])]+' Hundred')
+                if getTwo(numbers[i][1:]): curr.append(getTwo(numbers[i][1:]))
+            elif len(numbers[i]) == 2:
+                if getTwo(numbers[i]):curr.append(getTwo(numbers[i]))
+            else:
+                if lessThan20[no] : curr.append(lessThan20[no])
+
+            if thousands[power] != "": 
+                if thousands[power]:curr.append(thousands[power])
+
+            if curr:ans.append(" ".join(curr))
+            power += 1
+
+        ans.reverse()
+        return " ".join(ans)
