@@ -1,0 +1,48 @@
+class Solution:
+    def numberOfWays(self, s: str) -> int:
+        # 0 01 1 10 
+        # self.total = 0
+
+        total = 0
+        
+        c = [[0,0]]
+
+        for i in range(len(s)-1,-1,-1):
+            if s[i] == "0":
+                c.append([c[-1][0]+1,c[-1][1]])
+            else:
+                c.append([c[-1][0],c[-1][1]+1])
+
+        
+        
+        
+        stat = [[0,0]]
+
+        for i in range(len(s)-1,-1,-1):
+            zeroOne,oneZero = stat[-1]
+            # print(i,zeroOne,oneZero)
+            if len(s) - i > 1:
+                idx = len(s) - i
+                if s[i] == "1":
+                    # print("One",c[idx][0],i )
+                    stat.append([zeroOne,oneZero+(c[idx][0])])
+                else:
+                    # print("zero",c[idx][1],i )
+                    stat.append([zeroOne+c[idx][1],oneZero])
+            else:
+                stat.append([0,0])
+
+
+        for i in range(0,len(s)-2):
+            idx = i + 2
+            zeroOne,oneZero = stat[-idx]
+            if s[i] == "1":
+                total +=  zeroOne
+            else:
+                total += oneZero
+
+        return total
+
+
+        
+
