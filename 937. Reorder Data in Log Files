@@ -1,0 +1,25 @@
+class Solution:
+    def reorderLogFiles(self, logs: List[str]) -> List[str]:
+        
+        sortedlogs = []
+        nums = []
+        
+        for i,log in enumerate(logs):
+            idt,rest = log.split(' ',maxsplit=1)
+            if not rest[0].isnumeric():
+                sortedlogs.append((rest,idt,i))
+            else:
+                nums.append(log)
+                
+        sortedlogs.sort()
+        
+        finallist = []
+        
+        for log,identifier,i in sortedlogs:
+            finallist.append(logs[i])
+        
+        finallist.extend(nums)
+        
+        return finallist
+                
+            
