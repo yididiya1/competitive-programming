@@ -1,0 +1,21 @@
+class Solution:
+    def longestStrChain(self, words: List[str]) -> int:
+        
+        n=len(words)
+        words_set={}
+        
+        for i in range(len(words)):
+            words_set[words[i]] = i  
+
+        @cache
+        def dp(i):                 
+            curr=words[i]
+            max_length=0
+            for idx in range(len(curr)):
+                new_wc = curr[:idx] + curr[idx+1:]
+                if new_wc in words_set:
+                    max_length=max(max_length, 1 + dp(words_set[new_wc]))
+        
+            return max_length
+        
+        return max(dp(i)+1 for i in range(n))
