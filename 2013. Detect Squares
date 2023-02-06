@@ -1,0 +1,26 @@
+class DetectSquares:
+
+    def __init__(self):
+        self.c = defaultdict(dict)
+   
+    def add(self, point: List[int]) -> None:
+        x, y = point[0], point[1]
+   
+        if y in self.c[x]:
+            self.c[x][y] += 1
+        else:
+            self.c[x][y] = 0
+            self.c[x][y] += 1
+
+    def count(self, point: List[int]) -> int:
+        x, y = point[0], point[1]
+        res = 0 
+        if x in self.c:
+            for q in self.c[x]:
+                d = abs(y-q)
+                if d > 0:
+                    if x-d in self.c and y in self.c[x-d] and q in self.c[x-d]:
+                        res += self.c[x-d][y] * self.c[x-d][q] * self.c[x][q] 
+                    if x+d in self.c and y in self.c[x+d] and q in self.c[x+d]:
+                        res += self.c[x+d][y] * self.c[x+d][q] * self.c[x][q] 
+        return res 
