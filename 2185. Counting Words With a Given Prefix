@@ -1,0 +1,35 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.isEnd = False
+        self.precount = 0
+
+
+class Solution:
+    def prefixCount(self, words: List[str], pref: str) -> int:
+        
+        self.root = TrieNode()
+        
+        def insert(word):
+            cur = self.root
+            for char in word:
+                if char not in cur.children:
+                    cur.children[char] = TrieNode()
+                cur.precount += 1
+                cur = cur.children[char]
+            
+            cur.precount += 1
+            cur.isEnd = True
+            
+            
+        for word in words:
+            insert(word)
+         
+        cur = self.root
+        for ch in pref:
+            if ch not in cur.children:
+                return 0 
+            cur = cur.children[ch]
+            
+        return cur.precount
+            
