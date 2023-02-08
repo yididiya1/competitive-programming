@@ -1,0 +1,17 @@
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        nums = set(nums)
+        maxs = []
+        for num in nums:
+            if len(maxs) < 3:
+                maxs.append(num)
+                maxs.sort(reverse=True)
+            else:
+                if num > maxs[-1]:
+                    maxs.pop()
+                    maxs.append(num)
+                    maxs.sort(reverse=True)
+        
+        if len(maxs) < 3:
+            return max(maxs)
+        return maxs[-1]
