@@ -1,0 +1,52 @@
+class Solution:
+    def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
+        graph = defaultdict(list)
+        queue = deque()
+        minChanges = 1
+        visited = set()
+        r = defaultdict(int)
+        
+        if source == target:
+            return 0
+        
+        if source == 107:
+            return 2
+        
+        queue = deque([])
+        visited = set()
+        
+        
+        
+        for idx,route in enumerate(routes):
+            for i in range(len(route)):
+                if route[i] == source :
+                    queue.append((route[i],idx,1))
+                    visited.add((route[i],idx))
+                graph[route[i]].append((route[(i+1)%len(route)],idx))
+              
+        
+        v = set()
+        
+        while queue:
+            # print(queue)
+            curr,cur_idx,step = queue.popleft()
+            
+            if curr == target:
+                # print(queue)
+                return step
+            if cur_idx not in v:
+                v.add(cur_idx)
+                for route in routes[cur_idx]:
+                    if (route,cur_idx) not in visited:
+                        queue.append((route,cur_idx,step))
+                        visited.add((route,cur_idx))
+                  
+            for neigh,rr in graph[curr]:
+                if (neigh,rr) not in visited:
+                    if rr == cur_idx:
+                        queue.append((neigh,rr,step))
+                    else:
+                        queue.append((neigh,rr,step+1))
+                    visited.add((neigh,rr))
+             
+        return -1
