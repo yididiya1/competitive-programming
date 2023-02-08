@@ -1,0 +1,33 @@
+class Solution:
+    def restoreArray(self, adjacentPairs: List[List[int]]) -> List[int]:
+        pairs = defaultdict(list)
+        for p1,p2 in adjacentPairs:
+            pairs[p1].append(p2)
+            pairs[p2].append(p1)
+        
+        final = [0 for _ in range(len(adjacentPairs)+1)]
+        
+        curr = None
+        for num in pairs:
+            if len(pairs[num]) == 1:
+                final[0] = num
+                curr = num
+                
+        
+        for idx in range(len(final)-1):
+            # print(final,curr,pairs[curr],idx)
+            for neigh in pairs[curr]:
+                if idx == 0 or neigh != final[idx-1]:
+                    final[idx+1] = neigh
+                    curr = neigh
+                    
+
+        return final
+
+
+        
+        
+                
+        
+
+        
