@@ -1,0 +1,33 @@
+class Solution:
+    def subarraysWithKDistinct(self, A: List[int], K: int) -> int:
+        lo, hi, res = 0, 0, 0
+        data = defaultdict(int)
+        curK = 0
+        while lo < len(A):
+		
+            if hi < len(A) and curK < K:
+                data[A[hi]] += 1
+                if data[A[hi]] == 1:
+                    curK += 1
+                hi += 1
+            elif curK == K:
+                res += 1
+                temp = hi + 1
+                while temp <= len(A) and A[temp - 1] in data:
+                    temp += 1
+                    res += 1
+                
+			
+                data[A[lo]] -= 1
+                if data[A[lo]] == 0:
+                    curK -= 1
+                    del data[A[lo]]
+                lo += 1
+            else:
+			
+                data[A[lo]] -= 1
+                if data[A[lo]] == 0:
+                    curK -= 1
+                    del data[A[lo]]
+                lo += 1
+        return res
