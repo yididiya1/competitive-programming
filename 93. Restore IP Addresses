@@ -1,0 +1,33 @@
+class Solution:
+    def restoreIpAddresses(self, s: str) -> List[str]:
+        """
+        
+        
+        """
+        self.answer  = []
+        def backtrack(index,arr):
+            # print(index,arr)
+            if len(arr) >= 4: 
+                if len(arr) == 4 and index == len(s):
+                    self.answer.append(".".join(arr))
+                return 
+
+            if index >= len(s):
+                # print(arr)
+                return 
+
+            
+            for i in range(index,min(len(s),index+3)):
+                # print(index,min(len(s),index+3),"===")
+                if i == index :
+                    temp = arr.copy()
+                    temp.append(s[index:i+1])
+                    backtrack(i+1,temp)
+                else:
+                    if s[index] != '0' and int(s[index:i+1]) <= 255:
+                        temp  = arr.copy()
+                        temp.append(s[index:i+1])
+                        backtrack(i+1,temp)
+
+        backtrack(0,[])
+        return(self.answer)
