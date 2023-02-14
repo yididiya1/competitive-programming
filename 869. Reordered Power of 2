@@ -1,0 +1,12 @@
+class Solution:
+    def reorderedPowerOf2(self, n: int) -> bool:
+        n = Counter(str(n))
+        # print(n)
+        for i in range(32):
+            num = 2**i
+            num = Counter(str(num))
+            if num == n:
+                return True
+        return False
+            
+        
