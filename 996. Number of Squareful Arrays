@@ -1,0 +1,31 @@
+class Solution:
+    def numSquarefulPerms(self, nums: List[int]) -> int:
+
+        def is_square(n):
+            sqrt = math.sqrt(n)
+            return (sqrt - int(sqrt)) == 0
+
+       
+        def bt(self):
+            if len(path)>1:
+                if not is_square(path[-1]+path[-2]):
+                    return
+                
+            if len(path)==len(nums):
+                if path not in paths:
+                    paths.append(path.copy())
+                return
+            
+            for num in counter:
+                if counter[num]>0:
+                    path.append(num)
+                    counter[num]-=1
+                    bt(self)
+                    path.pop()
+                    counter[num]+=1
+            
+        path=[]
+        paths=[]
+        counter=Counter(nums)
+        bt(self)
+        return len(paths)
