@@ -1,0 +1,26 @@
+class Solution:
+    def findOriginalArray(self, changed: List[int]) -> List[int]:
+        
+        if len(changed)%2 != 0:
+            return []
+        
+        
+        changed.sort()
+        freq = Counter(changed)
+        
+        output = []
+
+        for i in range(len(changed)):
+            if freq[changed[i]] <= 0:
+                continue
+            freq[changed[i]] -= 1
+            if changed[i] * 2 not in freq or freq[changed[i]*2] <= 0:
+                return []
+            else:
+                output.append(changed[i])
+                freq[changed[i]*2] -= 1
+            
+        output.sort()
+        
+        if len(output) != len(changed)//2:return []
+        return output
